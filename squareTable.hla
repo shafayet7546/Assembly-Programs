@@ -1,0 +1,67 @@
+program squareTable;
+#include("stdlib.hhf");
+
+static
+userInp : int16 := 0;
+ascendingNum : int16 := 0;
+i : int16 :=0;
+
+begin squareTable;
+
+stdout.put("Please input a number to create the square table with: " );
+stdin.get(userInp);
+
+mov(userInp, AX);
+mov(AX, ascendingNum);
+
+stdout.put(userInp, " ", userInp, " ", userInp, " ", userInp, " ", userInp, nl );
+stdout.put(userInp, " ");
+
+mov(userInp, AX);
+mov(AX, ascendingNum);
+
+add(1, ascendingNum);
+
+stdout.put(ascendingNum, " ");
+
+add(1, ascendingNum);
+
+stdout.put(ascendingNum, " ");
+
+add(1, ascendingNum);
+
+stdout.put(ascendingNum, " ");
+
+stdout.put(userInp, nl);
+
+stdout.put(userInp, " ");
+
+
+add(1, ascendingNum);
+stdout.put(ascendingNum, " ");
+
+add(1, ascendingNum);
+stdout.put(ascendingNum, " ");
+
+add(1, ascendingNum);
+stdout.put(ascendingNum, " ");
+
+stdout.put(userInp, nl);
+
+stdout.put(userInp, " ");
+
+add(1, ascendingNum);
+stdout.put(ascendingNum, " ");
+
+add(1, ascendingNum);
+stdout.put(ascendingNum, " ");
+
+add(1, ascendingNum);
+stdout.put(ascendingNum, " ");
+
+stdout.put(userInp, nl);
+
+stdout.put(userInp, " ", userInp, " ", userInp, " ", userInp, " ", userInp);
+
+end squareTable;
+
