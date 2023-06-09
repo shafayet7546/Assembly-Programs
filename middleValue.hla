@@ -1,0 +1,127 @@
+program middleValue;
+
+#include("stdlib.hhf");
+
+static
+iValue1 : int16 := 0;
+iValue2 : int16 := 0;
+iValue3 : int16 := 0;
+
+procedure middleFinder( value1 : int16; value2 : int16; value3 : int16 ); @nodisplay; @noframe; 
+
+static
+iReturnAddress : dword;
+iRegisterValue : dword;
+
+
+begin middleFinder;
+
+pop(iReturnAddress);
+
+pop(iValue3);
+mov(iValue3, value3);
+pop(iValue2);
+mov(iValue2, value2);
+pop(iValue1);
+mov(iValue1, value1);
+
+push( iReturnAddress );
+push( iRegisterValue );
+
+ForLp:
+jmp ForLpTerminationTest;
+
+ForLpTerminationTest:
+mov(value1, DX);
+cmp(DX, value2);
+jge greaterComparison;
+cmp(DX, value2);
+jle lesserComparison;
+
+
+
+
+//Value 1 is greater than value2
+
+greaterComparison:
+cmp(DX, value3);
+jge finalComparison;                    // ____   ____  value1
+cmp(DX, value3);                  // value2 value1 value3 
+jle oneOutput;
+
+
+finalComparison:
+mov(value2, DX);
+cmp(DX, value3);
+jge twoOutput;                   // value3 value2 value1
+cmp(DX, value3);
+jle threeOutput;                  // value2 value3 value1
+
+
+
+//Value 2 is greater than value 1
+
+lesserComparison:
+mov(value2, DX);
+cmp(DX, value3);
+jge finalComparisonTwo;                          //___  ____ value2
+cmp(DX, value3);               //value1 value2 value3
+jle twoOutput;
+
+
+finalComparisonTwo:
+mov(value3, DX);
+cmp(DX, value1);
+jge threeOutput;                         // value1 value3 value2 
+cmp(DX, value1);
+jle oneOutput;                       // value3 value1 value2
+
+
+
+//Check to see if value1 is less or greater than value 3; We know value1 > value 2, and value 2 > value3
+
+
+oneOutput:
+stdout.put("The middle value is ");
+stdout.put( value1 );
+stdout.put("!");
+jmp ForLpEnd;
+
+twoOutput:
+stdout.put("The middle value is ");
+stdout.put( value2 );
+stdout.put("!");
+jmp ForLpEnd;
+
+threeOutput:
+stdout.put("The middle value is ");
+stdout.put( value3 );
+stdout.put("!");
+jmp ForLpEnd;
+
+
+ForLpEnd:
+end middleFinder;
+
+
+begin middleValue;
+
+//Asks user for input, and stores it.
+
+stdout.put("Feed me value1: ");
+stdin.get(iValue1);
+stdout.put("Feed me value2: ");
+stdin.get(iValue2);
+stdout.put("Feed me value3: ");
+stdin.get(iValue3);
+
+push( iValue1 );
+push( iValue2 );
+push( iValue3 );
+
+call middleFinder;
+
+end middleValue;
+
+
+

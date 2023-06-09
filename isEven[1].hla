@@ -1,0 +1,138 @@
+program isEven;
+#include("stdlib.hhf");
+
+static
+iValue1 : int8 := 0;
+iValue2 : int8 := 0;
+iValue3 : int8 := 0;
+
+
+procedure sumIsEven( value1 : int8; value2 : int8; value3 : int8 ); @nodisplay; @noframe; 
+
+static
+iReturnAddress : dword;
+iMin : int8;
+iTemporary : int16;
+SumTotal : int16;
+    iregisterValue1 : dword;
+    iregisterValue2 : dword;
+    iregisterValue3 : dword;
+
+
+begin sumIsEven;
+mov( EAX, iregisterValue1 );
+mov( EBX, iregisterValue2 );
+mov( ECX, iregisterValue3 );
+pop(iReturnAddress);
+
+pop( iTemporary );
+pop( iTemporary );
+mov( iTemporary, BX );
+mov( BL, value3 );
+
+pop( iTemporary ); 
+mov( iTemporary, BX );
+mov( BL, value2 );
+
+pop( iTemporary ); 
+mov( iTemporary, BX );
+mov( BL, value1 );
+
+
+push( iReturnAddress );
+push( iregisterValue3 );
+push( iregisterValue2 );
+push( iregisterValue1 );
+
+mov( value1, AL );
+mov( value2, BL );
+mov( value3, CL );
+
+
+
+ForLp:
+add( AL, BL );
+add( CL, BL );
+mov( BX, SumTotal );
+
+ForLpTest:
+cmp( SumTotal  , 0 );
+je oddResult;
+cmp( SumTotal  , 0 );
+jg ForLpDec;
+cmp( SumTotal  , 0 );
+jl evenResult;
+
+ForLpDec:
+sub( 2, SumTotal);
+jmp ForLpTest;
+
+SetZero:
+mov( 0, DX );
+jmp ForLpEnd;
+
+SetOne:
+mov( 1, DX );
+jmp ForLpEnd;
+
+
+oddResult:
+mov(0, DX);
+jmp ForLpEnd;
+
+
+evenResult:
+mov(1, DX);
+jmp ForLpEnd;
+
+
+ForLpEnd:
+pop( EAX );
+pop( EBX );
+pop( ECX );
+ret();
+end sumIsEven;
+
+begin isEven;
+
+stdout.put("Provide a value: ");
+stdin.get(iValue1);
+stdout.put("Provide a value: ");
+stdin.get(iValue2);
+stdout.put("Provide a value: ");
+stdin.get(iValue3);
+
+mov(0, BX );
+mov( iValue1, BL );
+push( BX );
+
+mov(0, BX );
+mov( iValue2, BL );
+push( BX );
+
+mov(0, BX );
+mov( iValue3, BL );
+push( BX );
+
+mov( 0, BX );
+push( BX );
+
+call sumIsEven;
+
+cmp(DX, 0);
+je printFalse;
+
+cmp(DX, 1);
+je printTrue;
+
+printFalse:
+stdout.put("sumIsEven returned true!", nl);
+jmp ForLpEnd;
+
+printTrue:
+stdout.put("sumIsEven returned false!", nl);
+jmp ForLpEnd;
+
+
+ForLpEnd:
+end isEven;

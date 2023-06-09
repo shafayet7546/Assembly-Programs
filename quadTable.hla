@@ -1,0 +1,58 @@
+program quadTable;
+#include ( "stdlib.hhf" );
+static
+num : int32;
+incTable : int32;
+begin quadTable;
+stdout.put( "Double Table", nl );
+stdout.put( "Give me a starting value:" );
+stdin.get(num);
+mov(num, incTable);
+
+stdout.put( "Quad Table ", nl );
+
+mov( num, EAX );
+shl( 2, EAX );
+mov( EAX, num );
+
+stdout.put( incTable, ":  ", num);
+
+mov( num, EAX );
+shl( 2, EAX );
+mov( EAX, num );
+
+stdout.put( " ", num, nl );
+
+add(1, incTable);
+
+mov(incTable, num);
+
+mov( num, EAX );
+shl( 2, EAX );
+mov( EAX, num );
+
+stdout.put( incTable, ":  ", num);
+
+mov( num, EAX );
+shl( 2, EAX );
+mov( EAX, num );
+
+stdout.put( " ", num, nl);
+
+add(1, incTable);
+
+mov(incTable, num);
+
+mov( num, EAX );
+shl( 2, EAX );
+mov( EAX, num );
+
+stdout.put( incTable, ":  ", num);
+
+mov( num, EAX );
+shl( 2, EAX );
+mov( EAX, num );
+
+stdout.put( " ", num, nl);
+
+end quadTable;
